@@ -6,6 +6,12 @@ msg = {
   empty_mobile: "Plase fill your mobile number",
   empty_email: "Please fill your email",
   empty_password: "Please fill your password",
+  empty_locality:"Please fill your locality",
+  empty_pincode:"Please fill your pincode",
+  empty_ps:"Please fill your ps",
+  empty_district:"Please fill your district",
+  empty_state:"Please fill your state",
+  empty_database_id:"Please enter database id",
   incorrect_mobile: "Please fill correct mobile",
   incorrect_email: "Please fill correct email",
   incorrect_password: "Please write proper password, Password must contain: Atleast 8 characters, 2 small, 2 captial,1 special character and No spaces",
@@ -14,6 +20,8 @@ msg = {
   registered: "Successfully Registered",
   logedIn: "Successfully Loged In",
   logInError: "Mobile and Password doesnot match",
-  getDataError: "User id and Password doesnot match"
+  getDataError: "User id and Password doesnot match",
+  wrong_database_id:"Wrong Database id entered",
+  databaseCustomerIdError:"Database id and Customer id doesnot match"
 }
 module.exports = msg;

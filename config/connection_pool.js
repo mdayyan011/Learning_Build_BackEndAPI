@@ -1,44 +1,43 @@
 var Promise = require('bluebird'),
   mysql = require('mysql2'),
   using = Promise.using;
+//distributed system
 
-
-var dbs = require('../helpers/utility.js');
-var constants =require('../config/message.js');
+var db = require('../config/db.js');
+var constants = require('../config/constant.js');
 var utility = require("../helpers/utility.js");
 
 
 var pools = {};
 var base = {
-
   host: 'localhost',
-  user: 'root',
+  user: 'customer',
   password: 'password',
   database: undefined,
   connectionLimit: 100,
   multipleStatements: true,
   dateStrings: true,
   //acquireTimeout: 30000,
-  typeCast: function (field, next) {
+  typeCast: function(field, next) {
     if (field.type == "BIT" && field.length == 1) {
       var bit = field.string();
       return (bit === null) ? null : bit.charCodeAt(0);
     }
+
     return next();
   }
 };
 
 exports.connection = async () => new Promise(
   (resolve, reject) => {
-
-    Object.keys(dbs).forEach(function (d) {
+    Object.keys(db).forEach(function(d) {
       var o = Object.assign({}, base);
-      Object.keys(dbs[d]).forEach(function (k) {
-        o[k] = dbs[d][k];
+      Object.keys(db[d]).forEach(function(k) {
+        o[k] = db[d][k];
       });
-      pools[d] = mysql.createPool(o);
+           pools[d] = mysql.createPool(o);
     });
-    constants.vals.dbconnpool = {};
+    constants.dbconn = {};
     resolve(pools);
   });
 
@@ -53,14 +52,12 @@ exports.query = async (database, q, params) => new Promise(
       }
       resolve(result);
     }
-
-
-    constants.vals.dbconn[database].getConnection(function (err, connection) {
+    constants.dbconn[database].getConnection(function(err, connection) {
       if (err) {
         console.error('runQry-cannot getConnection ERROR:', err);
         return callback(err);
       }
-      connection.query(q, params, function (err, result) {
+      connection.query(q, params, function(err, result) {
         connection.release();
         if (err) {
           console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++');
@@ -69,7 +66,6 @@ exports.query = async (database, q, params) => new Promise(
           console.error('runQry-cannot run qry ERROR:', err);
           reject(err);
         }
-
         resolve(result);
       });
     });

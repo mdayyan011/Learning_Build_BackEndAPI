@@ -2,77 +2,40 @@ const mysql = require('mysql2');
 const message_obj = require('../config/message.js');
 const customer_data = require('../controllers/controllers.js');
 const utility_obj = require('../helpers/utility.js');
+const pool = require('../config/connection_pool.js');
+const db = require('../config/db.js');
 const url = require('url');
 
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'master_customer'
-});
-
-connection.connect(function(err) {
-  if (err) {
-    console.log(message_obj.error);
-    console.log(err);
-  }
-  console.log(message_obj.db_success);
-});
-
-exports.insertCustomerData = function(customer_data) {
+exports.countData = async function() {
+  const sql = await `SELECT COUNT(*) AS row_count FROM customer_details`;
+  var count = await pool.query("master_db", sql);
+  return count[0].row_count;
+}
+exports.insertCustomerData = async function(customer_details) {
   const sql = `INSERT INTO customer_details SET ?`;
-  connection.query(sql, [customer_data], function(err, rows) {
-    if (err) throw err;
-    else {
-      console.log(message_obj.registerd);
-    }
-  })
+  var content1 = await pool.query("master_db", sql, [customer_details]);
+  return content1;
 }
-
-
-
-exports.LoginCustomer = function(login_details) {
-  const mobile = login_details.mobile;
-  const password = login_details.password;
-  const incoming_password = utility_obj.decrypt(password);
+exports.insertCustomerAddress = async function(customer_address, db_child) {
+  const sql = 'INSERT INTO customer_address SET ?';
+  var content2 = await pool.query(db_child, sql, [customer_address]);
+  return content2;
+}
+exports.userLogin = async function(mobile) {
   const sql = 'SELECT * FROM customer_details WHERE customer_mobile=?';
-  connection.query(sql, [mobile], function(err, rows) {
-    if (err) throw err;
-    else {
-      const encrypted_password = rows[0].customer_password;
-      const correct_password = utility_obj.decrypt(encrypted_password);
-      if (incoming_password === correct_password) {
-        console.log(message_obj.logedIn);
-      } else {
-        console.log(message_obj.logInError);
-      }
-    }
-  })
+  var login_content = await pool.query("master_db", sql, [mobile]);
+  let login_response = {
+    customer_id: login_content[0].customer_id,
+    customer_name: login_content[0].customer_name,
+    customer_password: login_content[0].customer_password,
+    database_id: login_content[0].database_id
+  }
+  return login_response;
 }
-
-
-exports.getUserData =async function(user_id) {
-  await connection.query('SELECT * FROM customer_details WHERE customer_id=?', [user_id],
-  async function(err, rows) {
-    if (err) throw err;
-    else {
-      console.log(rows);
-      return rows;
-    }
-  })
+exports.getUserData = async function(user_id,database_child) {
+ const sql = 'SELECT * FROM customer_address WHERE customer_id=?';
+ var details=await pool.query(database_child,sql,[user_id]);
+ return details;
+ // console.log(details);
 }
-
-
-// let myPromise = new Promise(function(myResolve, myReject) {
-// // "Producing Code" (May take some time)
-//
-//   myResolve(); // when successful
-//   myReject();  // when error
-// });
-//
-// // "Consuming Code" (Must wait for a fulfilled Promise)
-// myPromise.then(
-//   function(value) { /* code if successful */ },
-//   function(error) { /* code if some error */ }
-// );
