@@ -73,7 +73,6 @@ exports.user_registration =async function(req, res) {
    database_id="child_2";
  }
 
-console.log(database_id);
 
  var db_child;
  if(database_id=='child_1')
@@ -123,8 +122,9 @@ exports.userLogin =async function(req, res) {
 
   if(password == correct_decrypted_password)
   {
+    const encrypt_customer_id=utility_obj.encrypt(login_response.customer_id+"::++::");
     let response = {
-      customer_id:login_response.customer_id,
+      customer_id:encrypt_customer_id,
       customer_name:login_response.customer_name,
       database_id: login_response.database_id
     }
@@ -135,10 +135,11 @@ exports.userLogin =async function(req, res) {
   }
 }
 exports.getUserData =async function(req, res) {
-  const user_id = req.headers.user_id;
+  const encrypted_user_id = req.headers.user_id;
   const database_id=req.body.database_id;
   var database_child;
-
+  const decrypter_user_id=utility_obj.decrypt(encrypted_user_id);
+  const user_id=(decrypter_user_id.split("::++"))[0];
   if (utility_obj.checkEmpty(database_id)) {
     return res.send(message_obj.empty_database_id);
   }
@@ -161,9 +162,6 @@ exports.getUserData =async function(req, res) {
  }
 
 
-  console.log("Check 1");
-
-  console.log("In controllers");
   const rows =await db_obj.getUserData(user_id,database_child);
   if(utility_obj.checkEmpty(rows))
   {
