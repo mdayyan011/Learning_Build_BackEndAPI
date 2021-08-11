@@ -3,18 +3,19 @@ const message_obj = require('../config/message.js');
 const customer_data = require('../controllers/controllers.js');
 const utility_obj = require('../helpers/utility.js');
 const pool = require('../config/connection_pool.js');
+const constants=require('../config/constant.js');
 const db = require('../config/db.js');
 const url = require('url');
 
 
 exports.countData = async function() {
-  const sql = await `SELECT COUNT(*) AS row_count FROM customer_details`;
-  var count = await pool.query("master_db", sql);
+  const sql =`SELECT COUNT(*) AS row_count FROM customer_details`;
+  var count = await pool.query(constants.master_db, sql);
   return count[0].row_count;
 }
 exports.insertCustomerData = async function(customer_details) {
   const sql = `INSERT INTO customer_details SET ?`;
-  var content1 = await pool.query("master_db", sql, [customer_details]);
+  var content1 = await pool.query(constants.master_db, sql, [customer_details]);
   return content1;
 }
 exports.insertCustomerAddress = async function(customer_address, db_child) {
@@ -24,7 +25,7 @@ exports.insertCustomerAddress = async function(customer_address, db_child) {
 }
 exports.userLogin = async function(mobile) {
   const sql = 'SELECT * FROM customer_details WHERE customer_mobile=?';
-  var login_content = await pool.query("master_db", sql, [mobile]);
+  var login_content = await pool.query(constants.master_db, sql, [mobile]);
   let login_response = {
     customer_id: login_content[0].customer_id,
     customer_name: login_content[0].customer_name,

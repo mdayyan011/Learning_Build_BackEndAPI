@@ -1,8 +1,8 @@
 const url = require('url');
 const utility_obj = require('../helpers/utility.js');
 const message_obj = require('../config/message.js');
-const db_obj = require('../helpers/query.js')
-
+const db_obj = require('../helpers/query.js');
+const constants=require('../config/constant.js');
 
 exports.user_registration =async function(req, res) {
   let response={};
@@ -79,20 +79,20 @@ exports.user_registration =async function(req, res) {
  var database_id;
  if(count%2==0)
  {
-   database_id="child_1";
+   database_id=constants.child_db_1;
  }
  else {
-   database_id="child_2";
+   database_id=constants.child_db_2;
  }
 
 
  var db_child;
  if(database_id=='child_1')
  {
-   db_child="child_db_1";
+   db_child=constants.child_db_1;
  }
  else {
-   db_child='child_db_2';
+   db_child=constants.child_db_2;
  }
  let customer_details = {
    customer_id: (count+1),
@@ -138,6 +138,7 @@ exports.userLogin =async function(req, res) {
 
   if(password == correct_decrypted_password)
   {
+
     const encrypt_customer_id=utility_obj.encrypt(login_response.customer_id+"::++::");
     let response = {
       customer_id:encrypt_customer_id,
@@ -173,11 +174,11 @@ exports.getUserData =async function(req, res) {
 
   if(user_id%2==1 && database_id=='child_1')
   {
-    database_child="child_db_1";
+    database_child=constants.child_db_1;
   }
   else if(user_id%2==0 && database_id=='child_2')
   {
-   database_child="child_db_2";
+   database_child=constants.child_db_2;
  }
  else {
    response_getdata['message']=message_obj.databaseCustomerIdError;
