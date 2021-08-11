@@ -12,6 +12,7 @@ msg = {
   empty_district:"Please fill your district",
   empty_state:"Please fill your state",
   empty_database_id:"Please enter database id",
+  empty_customer_id:"Empty customer id",
   incorrect_mobile: "Please fill correct mobile",
   incorrect_email: "Please fill correct email",
   incorrect_password: "Please write proper password, Password must contain: Atleast 8 characters, 2 small, 2 captial,1 special character and No spaces",
@@ -22,6 +23,8 @@ msg = {
   logInError: "Mobile and Password doesnot match",
   getDataError: "User id and Password doesnot match",
   wrong_database_id:"Wrong Database id entered",
-  databaseCustomerIdError:"Database id and Customer id doesnot match"
+  databaseCustomerIdError:"Database id and Customer id doesnot match",
+  something_went_wrong:"Something went wrong",
+  error_registering:"Please enter unique data"
 }
 module.exports = msg;
