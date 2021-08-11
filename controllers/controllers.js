@@ -5,6 +5,7 @@ const db_obj = require('../helpers/query.js')
 
 
 exports.user_registration =async function(req, res) {
+  let response={};
   const name = req.body.name;
   const mobile = req.body.mobile;
   const email = req.body.email;
@@ -14,53 +15,64 @@ exports.user_registration =async function(req, res) {
   const ps=req.body.ps;
   const district = req.body.district;
   const state = req.body.state;
-
+  response['status']='error';
   if (utility_obj.checkEmpty(name)) {
-    return res.send(message_obj.empty_name);
+    response['message']=message_obj.empty_name;
+    res.send(response);
   }
   if (utility_obj.checkEmpty(mobile)) {
-    return res.send(message_obj.empty_mobile);
+    response['message']=message_obj.empty_mobile;
+    res.send(response);
   }
   if (utility_obj.checkEmpty(email)) {
-    return res.send(message_obj.empty_email);
+    response['message']=message_obj.empty_email;
+    res.send(response);
 
   }
   if (utility_obj.checkEmpty(password)) {
-    return res.send(message_obj.empty_password);
+    response['message']=message_obj.empty_password;
+    res.send(response);
 
   }
   if (utility_obj.checkEmpty(locality)) {
-    return res.send(message_obj.empty_locality);
+    response['message']=message_obj.empty_locality;
+    res.send(response);
 
   }
   if (utility_obj.checkEmpty(pincode)) {
-    return res.send(message_obj.empty_pincode);
+    response['message']=message_obj.empty_pincode;
+    res.send(response);
 
   }
   if (utility_obj.checkEmpty(ps)) {
-    return res.send(message_obj.empty_ps);
+    response['message']=message_obj.empty_ps;
+    res.send(response);
 
   }
   if (utility_obj.checkEmpty(district)) {
-    return res.send(message_obj.empty_district);
+    response['message']=message_obj.empty_district;
+    res.send(response);
 
   }
   if (utility_obj.checkEmpty(state)) {
-    return res.send(message_obj.empty_state);
-
+    response['message']=message_obj.empty_state;
+    res.send(response);
   }
 
 
   if (utility_obj.checkMobileFormat(mobile)) {
-    return res.send(message_obj.incorrect_mobile);
+    response['message']=message_obj.incorrect_mobile;
+    res.send(response);
 
   }
   if (utility_obj.checkEmailFormat(email)) {
-    return res.send(message_obj.incorrect_email);
+    response['message']=message_obj.incorrect_email;
+    res.send(response);
   }
 
   if (utility_obj.checkPasswordFormat(password)) {
-    return res.send(message_obj.incorrect_password);
+    response['message']=message_obj.incorrect_password;
+    res.send(response);
   }
 
  const count = await db_obj.countData();
@@ -102,12 +114,16 @@ exports.user_registration =async function(req, res) {
 
  await db_obj.insertCustomerData(customer_details);
  await db_obj.insertCustomerAddress(customer_address,db_child);
- res.sendStatus(200);
+ response['status']='success';
+ response['message']=message_obj.registered;
+ res.send(response);
 }
 
 
 
 exports.userLogin =async function(req, res) {
+  let response_login={};
+  response_login['status']='error';
   const mobile = req.body.mobile;
   const password = req.body.password;
   if (utility_obj.checkEmpty(mobile)) {
@@ -128,24 +144,30 @@ exports.userLogin =async function(req, res) {
       customer_name:login_response.customer_name,
       database_id: login_response.database_id
     }
-    return res.send(response);
+    // response_login['data']=resopo
+    res.send(response);
   }
   else {
-    return res.send(message_obj.getDataError);
+    response['message']=message_obj.getDataError;
+    res.send(response);
   }
 }
 exports.getUserData =async function(req, res) {
+  let response_getdata={};
+  response_getdata['status']='error';
   const encrypted_user_id = req.headers.user_id;
   const database_id=req.body.database_id;
   var database_child;
   const decrypter_user_id=utility_obj.decrypt(encrypted_user_id);
   const user_id=(decrypter_user_id.split("::++"))[0];
   if (utility_obj.checkEmpty(database_id)) {
-    return res.send(message_obj.empty_database_id);
+    response_getdata['message']=message_obj.empty_database_id;
+    res.send(response_getdata);
   }
   if(utility_obj.checkDatabaseFormat(database_id))
   {
-    return res.send(message_obj.wrong_database_id);
+    response_getdata['message']=message_obj.wrong_database_id;
+    res.send(response_getdata);
   }
 
 
@@ -158,14 +180,16 @@ exports.getUserData =async function(req, res) {
    database_child="child_db_2";
  }
  else {
-   return res.send(message_obj.databaseCustomerIdError);
+   response_getdata['message']=message_obj.databaseCustomerIdError;
+   res.send(response_getdata);
  }
 
 
   const rows =await db_obj.getUserData(user_id,database_child);
   if(utility_obj.checkEmpty(rows))
   {
-    res.send(message_obj.databaseCustomerIdError)
+    response_getdata['message']=message_obj.databaseCustomerIdError;
+    res.send(response_getdata);
   }
   else {
 
