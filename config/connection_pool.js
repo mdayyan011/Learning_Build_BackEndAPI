@@ -1,7 +1,6 @@
 var Promise = require('bluebird'),
   mysql = require('mysql2'),
   using = Promise.using;
-//distributed system
 
 var db = require('../config/db.js');
 var constants = require('../config/constant.js');

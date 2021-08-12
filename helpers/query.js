@@ -36,14 +36,19 @@ exports.userLogin = async function(mobile) {
   }
   return login_response;
 }
-exports.getUserData = async function(user_id,database_child) {
- // const sql = 'SELECT * FROM customer_address WHERE customer_id=?';
- // var details=await pool.query(database_child,sql,[user_id]);
- // return details;
-// const sql = 'SELECT * FROM master_customer.customer_details LEFT JOIN ??  ON master_customer.customer_details.customer_id = ? WHERE customer_id=?';
-// var details=await pool.query(constants.master_database,sql,[database_child.customer_address,database_child.customer_address.customer_id,user_id]);
-// return details;
+exports.getUserDetails = async function(user_id) {
+const sql='SELECT * FROM customer_details WHERE customer_id=?';
+var details=await pool.query(constants.master_database,sql,[user_id]);
+return details;
 }
+
+exports.getUserAddress = async function(user_id,database_child) {
+const sql='SELECT * FROM customer_address WHERE customer_id=?'
+var details=await pool.query(database_child,sql,[user_id]);
+return details;
+
+}
+
 exports.checkUserId = async function(user_id,database_id) {
  const sql = 'SELECT customer_name FROM customer_details WHERE customer_id=? AND database_id=?';
  var details=await pool.query(constants.master_database,sql,[user_id,database_id]);

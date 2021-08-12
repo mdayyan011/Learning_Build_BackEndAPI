@@ -28,8 +28,7 @@ Router.use(async function(req, res, next) {
   if (utility_obj.checkEmpty(user_id)) {
     if (path === "/register" || path === "/login") {
       next();
-    } else {
-      // return res.send(message_obj.register_first);
+    } else { 
       response['message'] = message_obj.register_first;
       return (response);
     }

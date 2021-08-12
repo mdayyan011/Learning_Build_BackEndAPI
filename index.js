@@ -2,8 +2,7 @@ const express= require('express');
 const app = express();
 const bodyParser=require('body-parser');
 const DataRouter=require("./routes/routes.js");
-app.use(bodyParser.json());
-// const message = require('./config/message.js')
+app.use(bodyParser.json()); 
 
 const db = require('./helpers/query.js')
 

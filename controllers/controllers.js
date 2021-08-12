@@ -3,6 +3,7 @@ const utility_obj = require('../helpers/utility.js');
 const message_obj = require('../config/message.js');
 const db_obj = require('../helpers/query.js');
 const constants=require('../config/constant.js');
+const methods=require('../helpers/methods.js');
 
 exports.user_registration =async function(req, res) {
   let response={};
@@ -170,14 +171,13 @@ exports.getUserData =async function(req, res) {
   else {
     database_id=constants.child_database2;
   }
-  const rows =await db_obj.getUserData(req.locals.customer_id,database_id);
+  let rows =await methods.getUserData(req.locals.customer_id,database_id);
   if(utility_obj.checkEmpty(rows))
   {
     response['status']="error";
     response['message']=message_obj.something_went_wrong;
     return res.send(response);
   }
-  response['data']=rows;
-  return  res.send(response);
+  return  res.send(rows);
   console.log("Check Controller");
 }
