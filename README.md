@@ -76,3 +76,19 @@ Install crypto-js with npm
 ```bash
   npm i mysql2
 ```
+
+## Running in Postman:
+
+###Database structure:
+
+Database used:MySql
+
+Three databases are there : namely , master_customer , child1 and child2.
+Inside master_customer database there is one table named customer_details.
+Indise child1 database there is one table named customer_address.
+Inside child2 also there is one table named customer_address
+
+Inside folder named "documents" there are two files one have the enviroment variables of postman of the project and second have the postman collection of the project.
+
+Kinldy use those to files to run in postman.
+  
