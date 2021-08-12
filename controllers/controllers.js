@@ -115,17 +115,15 @@ exports.user_registration =async function(req, res) {
    customer_address_state:state
  }
 
-db_obj.insertCustomerData(customer_details);
- db_obj.insertCustomerAddress(customer_address,db_child);
+ let insert_details_result=await db_obj.insertCustomerData(customer_details);
+ let insert_adress_result = await db_obj.insertCustomerAddress(customer_address,db_child);
  response['status']='success';
  response['message']=message_obj.registered;
  return  res.send(response);
+
 }
 
-
-
 exports.userLogin =async function(req, res) {
-
   let response_login={};
   response_login['status']='error';
   const mobile = req.body.mobile;

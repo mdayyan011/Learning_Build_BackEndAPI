@@ -16,7 +16,7 @@ exports.countData = async function() {
 exports.insertCustomerData = async function(customer_details) {
   const sql = `INSERT INTO customer_details SET ?`;
   var content1 = await pool.query(constants.master_database, sql, [customer_details]);
-  return content1;
+  return true;
 }
 exports.insertCustomerAddress = async function(customer_address, db_child) {
   const sql = 'INSERT INTO customer_address SET ?';
