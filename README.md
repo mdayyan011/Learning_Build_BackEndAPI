@@ -79,7 +79,7 @@ Install crypto-js with npm
 
 ## Running in Postman:
 
-###Database structure:
+### Database structure:
 
 Database used:MySql
 
