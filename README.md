@@ -39,18 +39,6 @@ Three API's are as follows:-
               customer_address_district,
               customer_address_state.
 
-Tool used: Nodejs.
-
-Database used: MySql.
-
-Packages used:
-node,
-nodemon,
-express,
-bluebird,
-crypto-js,
-mysql2,
-url.
 
 
 ## Installation
@@ -60,6 +48,31 @@ Following are the step-wise installations required
 Install node with npm
 
 ```bash
-  npm install node
+  npm i node
 ```
-    
+
+Install express with npm
+
+```bash
+  npm i express
+```
+Install nodemon with npm
+
+```bash
+  npm i nodemon
+```
+Install mysql2 with npm
+
+```bash
+  npm i mysql2
+```
+Install bluebird with npm
+
+```bash
+  npm i crypto-js
+```
+Install crypto-js with npm
+
+```bash
+  npm i mysql2
+```
