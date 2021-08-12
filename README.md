@@ -79,7 +79,7 @@ Install crypto-js with npm
 
 ## Running in Postman:
 
-###Database structure:
+### Database structure:
 
 Database used:MySql
 
@@ -90,5 +90,5 @@ Inside child2 also there is one table named customer_address
 
 Inside folder named "documents" there are two files one have the enviroment variables of postman of the project and second have the postman collection of the project.
 
-Kinldy use those to files to run in postman.
+Kinldy use those two files to run in postman.
   
