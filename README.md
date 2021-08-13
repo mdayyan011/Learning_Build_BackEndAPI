@@ -85,7 +85,7 @@ Database used:MySql
 
 Three databases are there : namely , master_customer , child1 and child2.
 Inside master_customer database there is one table named customer_details.
-Indise child1 database there is one table named customer_address.
+Inside child1 database there is one table named customer_address.
 Inside child2 also there is one table named customer_address
 The distribution of data to child1 and child2 is done in such a way that the address of those customers whose customer_id is odd gets stored in child1 and those cusotmers with even customer_id have thier address stored in child2.
 
