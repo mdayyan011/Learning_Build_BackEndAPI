@@ -69,12 +69,12 @@ Install mysql2 with npm
 Install bluebird with npm
 
 ```bash
-  npm i crypto-js
+  npm i bluebird
 ```
 Install crypto-js with npm
 
 ```bash
-  npm i mysql2
+  npm i crypto-js
 ```
 
 ## Running in Postman:
