@@ -180,11 +180,15 @@ exports.userLogin =async function(req, res) {
   }
   if(password == correct_decrypted_password)
   {
-    response = {
-      customer_id:login_response.customer_id,
-      customer_name:login_response.customer_name,
-      database_id: login_response.database_id
-    }
+    let customer_id = login_response.customer_id;
+    let database_id= login_response.database_id;
+    let user_id_decrypt="";
+    user_id_decrypt=customer_id+":::"+database_id;
+    let user_id=utility_obj.encrypt(user_id_decrypt);
+    let customer_name = login_response.customer_name;
+    response={};
+    response['user_id']=user_id;
+    response['customer_name']=customer_name;
     return res.send(response);
   }
   else {
@@ -195,43 +199,55 @@ exports.userLogin =async function(req, res) {
   }
 }
 exports.getUserData =async function(req, res) {
-  const user_id = req.headers.user_id;
-  const database_id=req.body.database_id;
+  let user_id_encrypt=req.headers.user_id;
+  let user_id=utility_obj.decrypt(user_id_encrypt);
+  let customer_id=user_id.split(":::")[0];
+  let database_id=user_id.split(":::")[1];
+  // const user_id = req.headers.user_id;
+  // const database_id=req.body.database_id;
   var database_child;
 
   let response={};
   if (utility_obj.checkEmpty(database_id)) {
-    return res.send(message_obj.empty_database_id);
+    response={};
+    response['status']='error';
+    response['mssg']=message_obj.empty_database_id;
+    return res.send(response);
   }
   if(utility_obj.checkDatabaseFormat(database_id))
   {
-    return res.send(message_obj.wrong_database_id);
+    response={};
+    response['status']='error';
+    response['mssg']=message_obj.wrong_database_id;
+    return res.send(response);
   }
 
 
-  if(user_id%2==1 && database_id=='child_1')
+  if(customer_id%2==1 && database_id=='child_1')
   {
     database_child="child_db_1";
   }
-  else if(user_id%2==0 && database_id=='child_2')
+  else if(customer_id%2==0 && database_id=='child_2')
   {
    database_child="child_db_2";
  }
  else {
-   return res.send(message_obj.databaseCustomerIdError);
+   response={};
+   response['status']='error';
+   response['mssg']=message_obj.databaseCustomerIdError;
+   return res.send(response);
  }
-
-
-  console.log("Check 1");
-
-  console.log("In controllers");
-  const rows =await db_obj.getUserData(user_id,database_child);
+ 
+  const rows =await db_obj.getUserData(customer_id,database_child);
   if(utility_obj.checkEmpty(rows))
   {
-    res.send(message_obj.databaseCustomerIdError)
+    response={};
+    response['status']='error';
+    response['mssg']=message_obj.databaseCustomerIdError;
+    res.send(response)
   }
   else {
-
+    
     res.send(rows);
   }
 }

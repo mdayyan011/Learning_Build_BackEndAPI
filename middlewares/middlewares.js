@@ -19,12 +19,14 @@ Router.use(async function(req, res, next) {
   const user_id = req.headers.user_id;
   const url_link = url.parse(req.url, true);
   const path = url_link.pathname;
-
+  let response={};
   if (utility_obj.checkEmpty(user_id)) {
     if (path === "/register" || path === "/login") {
       next();
     } else {
-      res.send(message_obj.register_first);
+      response['status']='error';
+      response['mssg']=message_obj.register_first;
+      res.send(response);
       return;
     }
   }
