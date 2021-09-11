@@ -5,7 +5,7 @@ let server = require('../index.js');
 
 let should = chai.should();
 chai.use(chaiHttp);
-//expert
+//expect
 //assert 
 
 describe("Login Suite", () => {
