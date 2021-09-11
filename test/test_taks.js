@@ -20,9 +20,8 @@ describe("Login Suite", () => {
             .end((err, response) => {
                 response.should.have.status(200);
                 response.body.should.be.a('object');
-                response.body.should.have.property('customer_id');
-                response.body.should.have.property('customer_name');
-                response.body.should.have.property('database_id');
+                response.body.should.have.property('user_id');
+                response.body.should.have.property('customer_name'); 
                 done();
             })
     })
@@ -40,9 +39,8 @@ describe("Login Suite", () => {
                 response.body.should.be.a('object');
                 response.body.should.have.property('status').eql('error');
                 response.body.should.have.property('mssg').eql('User id and Password doesnot match');
-                response.body.should.not.have.property('customer_id');
-                response.body.should.not.have.property('customer_name');
-                response.body.should.not.have.property('database_id');
+                response.body.should.not.have.property('user_id');
+                response.body.should.not.have.property('customer_name'); 
                 done();
             })
     })
@@ -60,9 +58,8 @@ describe("Login Suite", () => {
                 response.body.should.be.a('object');
                 response.body.should.have.property('status').eql('error');
                 response.body.should.have.property('mssg').eql('User id and Password doesnot match');
-                response.body.should.not.have.property('customer_id');
-                response.body.should.not.have.property('customer_name');
-                response.body.should.not.have.property('database_id');
+                response.body.should.not.have.property('user_id');
+                response.body.should.not.have.property('customer_name'); 
                 done();
             })
     })
@@ -79,9 +76,8 @@ describe("Login Suite", () => {
                 response.should.have.status(200);response.body.should.be.a('object');
                 response.body.should.have.property('status').eql('error');
                 response.body.should.have.property('mssg').eql('User id and Password doesnot match');                
-                response.body.should.not.have.property('customer_id');
-                response.body.should.not.have.property('customer_name');
-                response.body.should.not.have.property('database_id');
+                response.body.should.not.have.property('user_id');
+                response.body.should.not.have.property('customer_name'); 
                 done();
             })
     })
@@ -99,9 +95,8 @@ describe("Login Suite", () => {
                 response.body.should.be.a('object');
                 response.body.should.have.property('status').eql('error');
                 response.body.should.have.property('mssg').eql('Please enter mobile number to login');
-                response.body.should.not.have.property('customer_id');
-                response.body.should.not.have.property('customer_name');
-                response.body.should.not.have.property('database_id');
+                response.body.should.not.have.property('user_id');
+                response.body.should.not.have.property('customer_name'); 
             done();
             })
     })
@@ -119,9 +114,8 @@ describe("Login Suite", () => {
                 response.body.should.be.a('object');
                 response.body.should.have.property('status').eql('error');
                 response.body.should.have.property('mssg').eql('Please enter password to login');
-                response.body.should.not.have.property('customer_id');
-                response.body.should.not.have.property('customer_name');
-                response.body.should.not.have.property('database_id');
+                response.body.should.not.have.property('user_id');
+                response.body.should.not.have.property('customer_name'); 
             done();
             })
     })
@@ -139,9 +133,8 @@ describe("Login Suite", () => {
                 response.body.should.be.a('object');
                 response.body.should.have.property('status').eql('error');
                 response.body.should.have.property('mssg').eql('Please enter mobile number to login');
-                response.body.should.not.have.property('customer_id');
-                response.body.should.not.have.property('customer_name');
-                response.body.should.not.have.property('database_id');
+                response.body.should.not.have.property('user_id');
+                response.body.should.not.have.property('customer_name'); 
             done();
             })
     })
@@ -159,9 +152,8 @@ describe("Login Suite", () => {
                 response.body.should.be.a('object');
                 response.body.should.have.property('status').eql('error');
                 response.body.should.have.property('mssg').eql('Please enter password to login');
-                response.body.should.not.have.property('customer_id');
-                response.body.should.not.have.property('customer_name');
-                response.body.should.not.have.property('database_id');
+                response.body.should.not.have.property('user_id');
+                response.body.should.not.have.property('customer_name'); 
             done();
             })
     })
@@ -179,9 +171,8 @@ describe("Login Suite", () => {
                 response.body.should.be.a('object');
                 response.body.should.have.property('status').eql('error');
                 response.body.should.have.property('mssg').eql('Please enter mobile number to login');
-                response.body.should.not.have.property('customer_id');
-                response.body.should.not.have.property('customer_name');
-                response.body.should.not.have.property('database_id');
+                response.body.should.not.have.property('user_id');
+                response.body.should.not.have.property('customer_name'); 
             done();
             })
     })
