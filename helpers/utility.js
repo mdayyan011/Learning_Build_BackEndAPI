@@ -1,5 +1,5 @@
 const encryptionKey=require('../config/constant.js');
-const crypto=require('crypto-js');
+const crypto=require('crypto-js')
 
 exports.checkEmpty =function(data)
 {
@@ -43,7 +43,7 @@ exports.checkPasswordFormat = function(password) {
     return false;
 }
 exports.checkDatabaseFormat=function(database_id)
-{
+{ 
   if(database_id!="child_1" && database_id!="child_2")
   return true;
   else
